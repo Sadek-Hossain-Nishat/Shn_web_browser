@@ -1,0 +1,145 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context=".ui.home.HomeFragment"
+    android:background="@color/smokywhite"
+    >
+
+    <com.google.android.material.appbar.AppBarLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/smokywhite"
+        >
+
+        <com.google.android.material.appbar.CollapsingToolbarLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:contentScrim="@color/colorPrimaryDark"
+            app:layout_scrollFlags="scroll|snap|exitUntilCollapsed"
+            app:title="Homepage"
+
+            app:expandedTitleTextAppearance="@style/expandedBarTextStyle">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="300dp"
+                android:background="@drawable/custom_app_bar_background"
+                android:paddingHorizontal="20dp"
+                android:orientation="vertical"
+
+                >
+
+                <TextView
+                    android:layout_marginTop="70dp"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Finds amazing events happening around you"
+                    android:textColor="@android:color/white"
+                    android:textSize="30sp"
+                    android:textStyle="bold"
+                    />
+
+                <TextView
+                    android:layout_marginTop="10dp"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="400 events around you"
+                    android:textColor="@color/lightText"
+                    android:textSize="20sp"
+
+                    />
+
+                <EditText
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="20dp"
+                    android:background="@drawable/search_bar_background"
+                    android:height="55dp"
+                    android:hint="Search for events so ...."
+                    android:textColorHint="@color/white"
+                    android:paddingLeft="20dp"
+
+                    android:drawableEnd="@drawable/search_btn"
+
+
+
+                    android:paddingRight="5dp"
+                    android:textColor="@color/white"
+
+                    />
+
+
+
+
+            </LinearLayout>
+
+
+
+
+            <androidx.appcompat.widget.Toolbar
+                android:layout_width="match_parent"
+                android:layout_height="?attr/actionBarSize"
+                android:background="@color/colorPrimaryDark"
+
+
+                app:theme="@style/ThemeOverlay.MaterialComponents.Dark.ActionBar"
+                app:popupTheme="@style/ThemeOverlay.MaterialComponents.Light"
+
+
+                >
+
+
+            </androidx.appcompat.widget.Toolbar>
+
+
+
+
+
+
+
+        </com.google.android.material.appbar.CollapsingToolbarLayout>
+
+
+
+
+
+
+    </com.google.android.material.appbar.AppBarLayout>
+
+    <androidx.core.widget.NestedScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:layout_behavior="com.google.android.material.appbar.AppBarLayout$ScrollingViewBehavior">
+        <TextView
+            android:padding="10dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textSize="25sp"
+            android:text="Python does not have a character data type, a single character is simply
+a string with a length of 1.
+Square brackets can be used to access elements of the string
+Get the character at first position you have to use 0 index because it
+starts from zero
+Python does not have a character data type, a single character is simply
+a string with a length of 1.
+Square brackets can be used to access elements of the string
+Get the character at first position you have to use 0 index because it
+starts from zero
+Python does not have a character data type, a single character is simply
+a string with a length of 1.
+Square brackets can be used to access elements of the string
+Get the character at first position you have to use 0 index because it
+starts from zero"
+            android:textColor="@android:color/black"/>
+
+    </androidx.core.widget.NestedScrollView>
+
+
+
+
+
+</androidx.coordinatorlayout.widget.CoordinatorLayout>

@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="first_time_configuration">
+        <item>Welcome to SHN WEB</item>
+        <item>Why you will use SHN WEB?</item>
+        <item>There are some reasons</item>
+        <item>Secure web browsing</item>
+        <item>Desirable runtime permission</item>
+        <item>Get current location</item>
+        <item>Excellent downloading features</item>
+        <item>Nice media viewer system</item>
+        <item>Get all needed featurs </item>
+        <item>Now everything is OK </item>
+    </string-array>
+</resources>

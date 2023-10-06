@@ -1,0 +1,9 @@
+syntax = "proto3";
+
+option java_package = "com.shn.company.limited.shnwebbrowserapp";
+option java_multiple_files = true;
+
+message LocationData {
+  double latitude = 1;
+  double longitude = 2;
+}

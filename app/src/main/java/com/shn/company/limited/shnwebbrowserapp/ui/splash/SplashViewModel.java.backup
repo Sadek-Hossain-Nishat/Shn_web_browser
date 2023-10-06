@@ -1,0 +1,140 @@
+package com.shn.company.limited.shnwebbrowserapp.ui.splash
+
+
+
+import android.util.Log
+import androidx.lifecycle.SavedStateHandle
+import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
+import dagger.hilt.android.lifecycle.HiltViewModel
+
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.channels.Channel
+import kotlinx.coroutines.delay
+import kotlinx.coroutines.flow.*
+
+import kotlinx.coroutines.launch
+import javax.inject.Inject
+
+
+@HiltViewModel
+class SplashViewModel @Inject constructor(
+    private val savedStateHandle: SavedStateHandle
+
+)  : ViewModel() {
+
+    /***
+
+    private var _progressingValue = MutableLiveData<Int>(0)
+
+    val progressing: LiveData<Int> = _progressingValue
+
+     ***/
+
+// using flow
+    private var _progressingValue = MutableStateFlow<Int>(0)
+    val progressing: StateFlow<Int> = _progressingValue
+
+    private val progvalue = savedStateHandle.getStateFlow(CURRENT_PROGRESSING_VALUE,
+        INITIAL_PROGRESSING_VALUE)
+
+    // to initialte splash event you have to create a channel for SplashEvent
+
+    private val splashEventChannel = Channel<SplashEvent>()
+
+    val splashEvent = splashEventChannel.receiveAsFlow().flowOn(Dispatchers.Main)
+
+    fun changeProgvalue(prog: Int) {
+
+        savedStateHandle[CURRENT_PROGRESSING_VALUE]=prog
+
+    }
+
+
+
+
+
+    init {
+
+        // if you use view model
+        /***
+
+        viewModelScope.launch {
+        while (true) {
+        delay(1000)
+        if (_progressingValue.value!! < 100) {
+        _progressingValue.postValue(_progressingValue.value!! + 30)
+        } else {
+
+        splashEventChannel.send(SplashEvent.NavigateToHomeScreen)
+
+        }
+        }
+        }
+         ***/
+
+
+        viewModelScope.launch {
+
+
+            flow<Int> {
+                for (i in 0..100 step 33) {
+                    delay(1000)
+                    emit(i)
+                }
+            }.flowOn(Dispatchers.Default)
+                .collect {
+
+
+                _progressingValue.value = _progressingValue.value+33
+
+                    changeProgvalue(it)
+
+                    Log.i("progvalue", "${progvalue.value}")
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+            } to(
+
+                splashEventChannel.send(SplashEvent.NavigateToHomeScreen)
+
+            )
+
+
+        }
+
+
+    }
+
+    // splash event class
+    sealed class SplashEvent {
+        object NavigateToHomeScreen : SplashEvent() {
+
+        }
+    }
+
+    companion object {
+
+       private const val CURRENT_PROGRESSING_VALUE ="current_progressingvalue"
+       private const val INITIAL_PROGRESSING_VALUE =0
+
+    }
+
+
+}
+

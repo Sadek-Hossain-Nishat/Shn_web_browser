@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<layout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+        <variable
+            name="firstconfigurationviewmodel"
+            type="com.shn.company.limited.shnwebbrowserapp.ui.firsttimeconfiguration.ConfigurationViewModel" />
+    </data>
+
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:padding="15dp"
+        android:layout_marginTop="50dp"
+        android:background="@color/white"
+
+        tools:context=".ui.firsttimeconfiguration.FirstConfigurationFragment"
+       >
+
+
+        <ImageView
+            android:id="@+id/imageView2"
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            android:layout_marginTop="32dp"
+            app:randomImageColor="@{firstconfigurationviewmodel.randromColor}"
+            app:randomImage="@{firstconfigurationviewmodel.firstTimeConfigurationModel.icon}"
+            app:bouncingAnimation="@{firstconfigurationviewmodel.bouncingCommand}"
+
+
+            app:layout_constraintEnd_toEndOf="@+id/configuration_text_view"
+            app:layout_constraintStart_toStartOf="@+id/configuration_text_view"
+            app:layout_constraintTop_toBottomOf="@+id/configuration_text_view"
+            tools:src="@drawable/ic_welcome"
+            app:tint="@color/teal_700"
+            tools:ignore="UseAppTint" />
+
+        <TextView
+            android:id="@+id/configuration_text_view"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/breeserif_regular"
+            android:text="@{firstconfigurationviewmodel.firstTimeConfigurationModel.iconName}"
+            android:textSize="30sp"
+            app:bouncingAnimation="@{firstconfigurationviewmodel.bouncingCommand}"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.162"
+            app:randomTextColor="@{firstconfigurationviewmodel.randromColor}" />
+
+        <Button
+            android:id="@+id/button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="24dp"
+            android:layout_marginBottom="16dp"
+            android:text="All Done"
+            app:hideView="@{firstconfigurationviewmodel.isHide}"
+            app:startAnimation="@{firstconfigurationviewmodel.isAnimstart}"
+
+            android:textColor="@color/white"
+            android:background="@drawable/rounded_corner_shape"
+            android:textAllCaps="false"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/imageView2"
+            app:layout_constraintVertical_bias="0.957"
+            android:onClick="@{()->firstconfigurationviewmodel.gotoHomeScreenEvent()}"/>
+
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+
+</layout>
