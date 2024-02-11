@@ -72,5 +72,16 @@ class FirstConfigurationFragment:Fragment(R.layout.fragment_firstconfiguration) 
     }
 
 
+    override fun onPause() {
+        super.onPause()
+        configurationModel.onPauseEvent()
+    }
+
+    override fun onResume() {
+        super.onResume()
+        configurationModel.onResumeEvent()
+    }
+
+
 
 }

@@ -21,14 +21,15 @@ class PreferencesDataStore @Inject constructor(@ApplicationContext val context: 
 
 
     val FIRSTTIMERUN = booleanPreferencesKey("first_time_run")
-    val firsttimerunFlow: Flow<Boolean> = context.dataStore.data.map { preferences -> preferences[FIRSTTIMERUN]?:false
+
+    val firsttimerunFlow: Flow<Boolean> = context.dataStore.data.map { preferences -> preferences[FIRSTTIMERUN]?:true
 
     }
 
 
     suspend fun editFirsttimerun() {
         context.dataStore.edit { preferences ->
-            preferences[FIRSTTIMERUN] = true
+            preferences[FIRSTTIMERUN] = false
         }
     }
 

@@ -3,6 +3,7 @@ package com.shn.company.limited.shnwebbrowserapp.ui.splash
 import android.annotation.SuppressLint
 import android.graphics.Color
 import android.os.Bundle
+import android.util.Log
 import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
@@ -157,6 +158,19 @@ class SplashFragment: Fragment(R.layout.fragment_splash) {
 
 
 
+    }
+
+    override fun onPause() {
+        super.onPause()
+        Log.d("debugval", "onPause: called ")
+        splashViewModel.onPauseEvent()
+    }
+
+    override fun onResume() {
+        super.onResume()
+        Log.d("debugval", "onResume: called ")
+
+        splashViewModel.onResumeEvent()
     }
 
 

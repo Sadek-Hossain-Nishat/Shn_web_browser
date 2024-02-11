@@ -29,7 +29,7 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintVertical_bias="0.199"
-            app:startAnimation="@{splashviewmodel.willStart}"
+            app:splashAnimation="@{splashviewmodel.willStart}"
 
 
 
@@ -48,7 +48,7 @@
             app:layout_constraintEnd_toEndOf="@+id/imageView"
             app:layout_constraintStart_toStartOf="@+id/imageView"
             app:layout_constraintTop_toBottomOf="@+id/imageView"
-            app:startAnimation="@{splashviewmodel.willStart}"/>
+            app:splashAnimation="@{splashviewmodel.willStart}"/>
 
         <ProgressBar
             android:id="@+id/progressBar"
@@ -84,7 +84,7 @@
             android:fontFamily="@font/titprism_regular"
             app:layout_constraintStart_toStartOf="@+id/progressBar"
             app:layout_constraintTop_toBottomOf="@+id/progressBar"
-            app:startAnimation="@{splashviewmodel.willStart}"/>
+            app:splashAnimation="@{splashviewmodel.willStart}"/>
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

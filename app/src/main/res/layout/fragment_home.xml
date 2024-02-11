@@ -9,8 +9,8 @@
     <data>
 
         <variable
-            name="homeviewmodel"
-            type="com.shn.company.limited.shnwebbrowserapp.ui.home.HomeViewModel" />
+            name="locationviewmodel"
+            type="com.shn.company.limited.shnwebbrowserapp.utils.LocationViewModel" />
     </data>
 
 
@@ -47,7 +47,7 @@
             android:id="@+id/date_textview"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="22th June, 2023"
+            android:text="@{locationviewmodel.currentDate}"
             android:textColor="@android:color/white"
             android:textSize="18sp"
             android:textStyle="bold"
@@ -70,7 +70,7 @@
 
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="06:51PM"
+            android:text="@{locationviewmodel.currentTime}"
             android:textColor="@android:color/white"
             android:textSize="18sp"
             android:textStyle="bold"

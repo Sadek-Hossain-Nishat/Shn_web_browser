@@ -2,10 +2,7 @@ package com.shn.company.limited.shnwebbrowserapp.ui.firsttimeconfiguration
 
 import android.content.Context
 import com.shn.company.limited.shnwebbrowserapp.R
-import com.shn.company.limited.shnwebbrowserapp.SHNWebBrowserApplication
-import dagger.hilt.InstallIn
 import dagger.hilt.android.qualifiers.ApplicationContext
-import dagger.hilt.components.SingletonComponent
 import javax.inject.Inject
 
 
