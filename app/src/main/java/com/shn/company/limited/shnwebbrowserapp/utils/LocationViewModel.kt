@@ -5,12 +5,15 @@ import android.content.Context
 import android.content.IntentSender
 import android.icu.text.SimpleDateFormat
 import android.icu.util.Calendar
+import android.icu.util.TimeZone
+
 import android.location.Geocoder
 import android.location.Location
 import android.widget.Toast
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.google.android.gms.common.api.ResolvableApiException
+
 import com.google.android.gms.location.FusedLocationProviderClient
 import com.google.android.gms.location.LocationRequest
 import com.google.android.gms.location.LocationServices
@@ -26,9 +29,12 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.channels.Channel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
+import kotlinx.coroutines.flow.collect
+import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.flow.flowOn
 import kotlinx.coroutines.flow.receiveAsFlow
 import kotlinx.coroutines.launch
+import java.time.Clock
 import java.util.Locale
 import javax.inject.Inject
 
@@ -42,6 +48,8 @@ class LocationViewModel @Inject constructor(@ApplicationContext private val cont
 
 
     private val locationRequestChannel = Channel<LocationRequestIntent> ()
+
+
 
 
     val locationRequestEvents = locationRequestChannel.receiveAsFlow().flowOn(Dispatchers.Main)
@@ -58,20 +66,138 @@ class LocationViewModel @Inject constructor(@ApplicationContext private val cont
 
         fusedLocationClient = LocationServices.getFusedLocationProviderClient(context)
 
+
+        getCurrentDate()
+        getCurrentTime()
+        
+        /***
+
         _currentDate.value = getCurrentDate(DATE)
         _currentTime.value = getCurrentDate(TIME)
+        
+        
+        ***/
     }
 
-    private fun getCurrentDate(type: String): String {
-
-        val cal: Calendar = Calendar.getInstance()
-        val monthDateYear = SimpleDateFormat("MMMM DD, YYYY")
-        val currentTime = SimpleDateFormat("HH:mm:ss z")
 
 
+    @SuppressLint("NewApi", "SimpleDateFormat")
+    private fun getCurrentTime(){
+//        val utc = TimeZone.getTimeZone("etc/UTC")
+
+        val clock = Clock.systemDefaultZone()
+
+
+        val utc = TimeZone.getTimeZone(clock.zone.toString())
 
 
 
+
+
+        val serverSDF = SimpleDateFormat("HH:mm:ss aa",
+
+       )
+
+
+        serverSDF.timeZone = utc
+
+
+
+        println("timezone => ${clock.zone}")
+
+
+        viewModelScope.launch {
+
+            flow {
+                while(true){
+                  val calfortime: Calendar = Calendar.getInstance()
+
+
+                    emit(serverSDF.format(calfortime.time))
+//                    emit(localSDF.format(serverSDF.parse(calfortime.time.toString())))
+
+                    println("current time=>${serverSDF.format(calfortime.time)}")
+//                    println("current time=>${calfortime.}")
+
+                    kotlinx.coroutines.delay(1000)
+                }
+            }
+                .collect{
+
+
+                   _currentTime.value = it
+                }
+
+
+        }
+
+
+
+
+
+
+
+    }
+
+    @SuppressLint("SimpleDateFormat")
+    private fun getCurrentDate(
+//        type: String
+    ): Unit {
+
+
+
+
+        val monthDateYear = SimpleDateFormat("MMMM dd, YYYY")
+
+
+
+
+
+        viewModelScope.launch {
+
+
+
+
+
+
+
+                    flow {
+                        while(true){
+                            val calfordate: Calendar = Calendar.getInstance()
+                            emit(monthDateYear.format(calfordate.time))
+
+                            kotlinx.coroutines.delay(86400000)
+                        }
+                    }
+                        .collect{
+
+
+                            _currentDate.value = it
+                        }
+
+                /***
+                TIME->{
+                    flow {
+                        while (true) {
+                            emit(currentTime.format(cal.time))
+                        }
+                    }.collect{
+                        _currentTime.value = it
+                    }
+                }
+
+                ***/
+
+
+        }
+
+
+
+
+
+
+
+        /***
 
        return  when(type){
             DATE ->{
@@ -88,6 +214,9 @@ class LocationViewModel @Inject constructor(@ApplicationContext private val cont
 
            else -> {""}
        }
+
+
+        ***/
 
 
 
