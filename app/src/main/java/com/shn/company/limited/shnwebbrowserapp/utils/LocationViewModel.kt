@@ -3,6 +3,7 @@ package com.shn.company.limited.shnwebbrowserapp.utils
 import android.annotation.SuppressLint
 import android.content.Context
 import android.content.IntentSender
+import android.content.res.Resources
 import android.icu.text.SimpleDateFormat
 import android.icu.util.Calendar
 import android.icu.util.TimeZone
@@ -10,6 +11,7 @@ import android.icu.util.TimeZone
 import android.location.Geocoder
 import android.location.Location
 import android.widget.Toast
+import androidx.core.os.ConfigurationCompat
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.google.android.gms.common.api.ResolvableApiException
@@ -81,20 +83,21 @@ class LocationViewModel @Inject constructor(@ApplicationContext private val cont
 
 
 
-    @SuppressLint("NewApi", "SimpleDateFormat")
+    @SuppressLint("NewApi", "SimpleDateFormat", "SuspiciousIndentation")
     private fun getCurrentTime(){
 //        val utc = TimeZone.getTimeZone("etc/UTC")
 
         val clock = Clock.systemDefaultZone()
 
 
-        val utc = TimeZone.getTimeZone(clock.zone.toString())
+        val utc = TimeZone.getTimeZone("etc/UTC")
 
 
 
 
 
         val serverSDF = SimpleDateFormat("HH:mm:ss aa",
+            Locale.US
 
        )
 
@@ -106,11 +109,18 @@ class LocationViewModel @Inject constructor(@ApplicationContext private val cont
         println("timezone => ${clock.zone}")
 
 
+
+
         viewModelScope.launch {
 
             flow {
                 while(true){
                   val calfortime: Calendar = Calendar.getInstance()
+
+                    println("local=> ${ConfigurationCompat.getLocales(Resources.getSystem().getConfiguration()).get(0)
+                        ?.getDisplayName()}")
+
+                    println("timezone =>${TimeZone.getDefault().getDisplayName(false,java.util.TimeZone.SHORT)}")
 
 
                     emit(serverSDF.format(calfortime.time))
