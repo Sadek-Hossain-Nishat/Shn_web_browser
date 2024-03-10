@@ -3,19 +3,15 @@ package com.shn.company.limited.shnwebbrowserapp.utils
 import android.annotation.SuppressLint
 import android.content.Context
 import android.content.IntentSender
-import android.content.res.Resources
 import android.icu.text.SimpleDateFormat
 import android.icu.util.Calendar
 import android.icu.util.TimeZone
-
 import android.location.Geocoder
 import android.location.Location
 import android.widget.Toast
-import androidx.core.os.ConfigurationCompat
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.google.android.gms.common.api.ResolvableApiException
-
 import com.google.android.gms.location.FusedLocationProviderClient
 import com.google.android.gms.location.LocationRequest
 import com.google.android.gms.location.LocationServices
@@ -96,13 +92,19 @@ class LocationViewModel @Inject constructor(@ApplicationContext private val cont
 
 
 
-        val serverSDF = SimpleDateFormat("HH:mm:ss aa",
-            Locale.US
-
-       )
 
 
-        serverSDF.timeZone = utc
+
+
+
+
+
+
+        val serverSDF = SimpleDateFormat("hh:mm:ss aa",
+
+        )
+
+//        serverSDF.timeZone = utc
 
 
 
@@ -117,16 +119,24 @@ class LocationViewModel @Inject constructor(@ApplicationContext private val cont
                 while(true){
                   val calfortime: Calendar = Calendar.getInstance()
 
-                    println("local=> ${ConfigurationCompat.getLocales(Resources.getSystem().getConfiguration()).get(0)
-                        ?.getDisplayName()}")
+                    println("local=> ${context.resources.configuration.locale
+                       }")
 
-                    println("timezone =>${TimeZone.getDefault().getDisplayName(false,java.util.TimeZone.SHORT)}")
-
-
-                    emit(serverSDF.format(calfortime.time))
+                    println("timezone =>${TimeZone.getDefault().getDisplayName(false,java.util.TimeZone.SHORT)[4]}")
+                    println("time difference =>${serverSDF.parse(serverSDF.format(calfortime.time)).time - serverSDF.parse("12:00:00 PM").time}")
+//                    val diffTime = serverSDF.parse(serverSDF.format(calfortime.time)).time - serverSDF.parse("12:00:00 PM").time
+//
+//
+//                    calfortime.timeInMillis = diffTime
+                    println("diff time=> ${calfortime.time}")
+                   emit(serverSDF.format(calfortime.time))
 //                    emit(localSDF.format(serverSDF.parse(calfortime.time.toString())))
 
+                    println("current time=>${calfortime.get(Calendar.HOUR_OF_DAY)}")
+
                     println("current time=>${serverSDF.format(calfortime.time)}")
+
+
 //                    println("current time=>${calfortime.}")
 
                     kotlinx.coroutines.delay(1000)
