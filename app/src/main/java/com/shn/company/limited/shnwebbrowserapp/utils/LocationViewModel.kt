@@ -21,6 +21,7 @@ import com.google.android.gms.location.Priority
 import com.google.android.gms.location.SettingsClient
 import com.google.android.gms.tasks.CancellationTokenSource
 import com.google.android.gms.tasks.Task
+import com.shn.company.limited.shnwebbrowserapp.ui.home.LocationModel
 import dagger.hilt.android.lifecycle.HiltViewModel
 import dagger.hilt.android.qualifiers.ApplicationContext
 import kotlinx.coroutines.Dispatchers
@@ -57,6 +58,15 @@ class LocationViewModel @Inject constructor(@ApplicationContext private val cont
 
   val currentDate: StateFlow<String> = _currentDate
   val currentTime: StateFlow<String> = _currentTime
+
+    private val _locationState = MutableStateFlow<LocationModel>(LocationModel(1.0,1.0))
+
+
+   val locationState :StateFlow<LocationModel>  = _locationState
+
+    private val  _addressState = MutableStateFlow<String>("")
+
+    val addressState :StateFlow<String> = _addressState
 
 
 
@@ -344,7 +354,20 @@ class LocationViewModel @Inject constructor(@ApplicationContext private val cont
                 val addresline = addressess!![0].getAddressLine(0)
 
 
-                val countryname = addressess!![0].countryName
+
+
+
+                val countryname = addressess[0].countryName
+
+                val featuredName = addressess[0].featureName
+
+                val sublocality = addressess[0].subLocality
+
+                val throughfare = addressess[0].thoroughfare
+
+                val adminarea = addressess[0].subAdminArea
+
+                _addressState.value = "${featuredName}, ${sublocality}, ${throughfare}, ${adminarea}, ${countryname}"
 
 
 //                Toast.makeText(requireContext(),"Location ${location.latitude} ${location.longitude}",Toast.LENGTH_LONG).show()
